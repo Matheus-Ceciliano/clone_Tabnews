@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maison For Men — Prévia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: pub sign — bottle-green panels framed in brass rules, single dark look by choice */
+:root {
+  --bg: #0f1f19;
+  --panel: #152a22;
+  --brass: #c9a45c;
+  --brass-soft: #8a7442;
+  --ink: #efe8d8;
+  --muted: #a9b3a7;
+  --oxblood: #7a2e2a;
+  --display: "Bodoni Moda", "Didot", Georgia, serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.preview-note { background: var(--oxblood); color: var(--ink); font-size: 13px; text-align: center; padding-block: 8px; }
+
+header.top { border-bottom: 1px solid var(--brass-soft); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 16px; flex-wrap: wrap; }
+.mark { font-family: var(--display); font-size: 22px; letter-spacing: .02em; text-decoration: none; }
+.mark em { color: var(--brass); font-style: italic; }
+nav { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; }
+nav a { text-decoration: none; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+
+.hero .wrap { padding-block: 72px 64px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+.eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: 12px; color: var(--brass); font-weight: 600; }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(44px, 8vw, 88px); line-height: .98; margin: 14px 0 20px; text-wrap: balance; }
+h1 em { color: var(--brass); }
+.lead { color: var(--muted); max-width: 48ch; font-size: 18px; margin: 0 0 28px; }
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px;
+  font: 600 15px var(--body); text-decoration: none; border-radius: 2px; cursor: pointer;
+  border: 1px solid var(--brass); transition: background .2s, color .2s;
+}
+.btn.solid { background: var(--brass); color: #1a1407; }
+.btn.solid:hover { background: #dcb977; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: rgba(201,164,92,.12); }
+
+.hero-media { position: relative; border: 1px solid var(--brass); padding: 10px; max-width: 380px; justify-self: end; width: 100%; }
+.hero-media video { display: block; width: 100%; aspect-ratio: 9 / 14; object-fit: cover; background: var(--panel); }
+.badge {
+  position: absolute; left: -18px; bottom: 28px; background: var(--bg); border: 1px solid var(--brass);
+  padding: 12px 16px; font-family: var(--display); font-size: 30px; line-height: 1;
+}
+.badge small { display: block; font-family: var(--body); font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+/* fotos */
+.perk img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin-bottom: 14px; border: 1px solid rgba(201,164,92,.3); }
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 210px; gap: 10px; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; min-width: 0; }
+.gallery .big { grid-column: span 2; grid-row: span 2; }
+.gallery .wide { grid-column: span 2; }
+.facade { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin-bottom: 14px; border: 1px solid rgba(201,164,92,.3); }
+
+section.block { border-top: 1px solid rgba(201,164,92,.25); }
+section.block > .wrap { padding-block: 64px; }
+h2 { font-family: var(--display); font-weight: 500; font-size: clamp(30px, 5vw, 44px); margin: 6px 0 28px; text-wrap: balance; }
+h3.sub { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin: 36px 0 4px; }
+.todo { font-size: 12px; color: var(--brass); border: 1px dashed var(--brass-soft); padding: 2px 8px; border-radius: 2px; white-space: nowrap; }
+
+/* ambiente */
+.perks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.perk { border-top: 1px solid var(--brass); padding-top: 14px; }
+.perk b { font-family: var(--display); font-size: 22px; font-weight: 500; display: block; }
+.perk p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+
+/* cardápio de serviços */
+.menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+.item { display: flex; align-items: baseline; gap: 10px; padding-block: 12px; border-bottom: 1px dotted var(--brass-soft); min-width: 0; }
+.item b { font-weight: 600; }
+.item small { display: block; color: var(--muted); font-size: 13.5px; }
+.item .dots { flex: 1; }
+.item .price { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--brass); font-weight: 600; }
+
+/* assinaturas */
+.subs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.sub-card { background: var(--panel); border: 1px solid rgba(201,164,92,.3); padding: 20px; display: grid; gap: 6px; min-width: 0; }
+.sub-card.hl { border-color: var(--brass); }
+.sub-card h4 { margin: 0; font-size: 17px; }
+.sub-card .val { font-family: var(--display); font-size: 30px; line-height: 1.1; font-variant-numeric: lining-nums; }
+.sub-card .val small { font-family: var(--body); font-size: 14px; color: var(--muted); }
+.sub-card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* equipe */
+.team { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px 14px; }
+.chip { display: grid; justify-items: center; gap: 8px; text-decoration: none; text-align: center; min-width: 0; }
+.chip .ini {
+  width: 100%; max-width: 120px; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--brass-soft);
+  display: grid; place-items: center; font-family: var(--display); font-size: 34px; color: var(--brass);
+  background: var(--panel) center / cover no-repeat; transition: border-color .2s, transform .2s;
+}
+.chip:hover .ini { border-color: var(--brass); transform: translateY(-2px); }
+.chip .nm { font-size: 14px; font-weight: 600; }
+.team-note { color: var(--muted); font-size: 14px; margin: 0 0 18px; }
+
+/* avaliação */
+.rate { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.rate p.explain { color: var(--muted); margin: 0 0 16px; max-width: 46ch; }
+.nfc-tag { display: inline-flex; gap: 12px; align-items: center; border: 1px solid var(--brass-soft); padding: 12px 16px; font-size: 14px; color: var(--muted); }
+.nfc-tag svg { flex: none; }
+.card { background: var(--panel); border: 1px solid var(--brass); padding: 24px; display: grid; gap: 16px; }
+label { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+select, textarea { width: 100%; background: var(--bg); color: var(--ink); border: 1px solid var(--brass-soft); padding: 12px; font: 15px var(--body); border-radius: 2px; }
+textarea { min-height: 84px; resize: vertical; }
+.stars { display: flex; gap: 6px; }
+.stars button { background: none; border: 0; padding: 2px; cursor: pointer; font-size: 34px; line-height: 1; color: var(--brass-soft); transition: transform .15s, color .15s; }
+.stars button[aria-pressed="true"] { color: var(--brass); }
+.stars button:hover { transform: scale(1.12); }
+.thanks h3 { font-family: var(--display); font-weight: 500; font-size: 28px; margin: 0; }
+.thanks p { margin: 0; color: var(--muted); }
+
+/* visite */
+.visit { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.visit h3 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin: 0 0 8px; }
+.visit p { margin: 0; }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; font-variant-numeric: tabular-nums; }
+.hours span:nth-child(odd) { color: var(--muted); }
+
+footer { border-top: 1px solid var(--brass-soft); color: var(--muted); font-size: 13px; }
+footer .wrap { padding-block: 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 820px) {
+  .hero .wrap { grid-template-columns: 1fr; padding-block: 48px; }
+  .hero-media { justify-self: center; max-width: 300px; }
+  .badge { left: -8px; }
+  .menu, .rate, .visit, .perks { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 130px; }
+  .gallery .wide { grid-column: auto; }
+  .team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .subs { grid-template-columns: 1fr; }
+  nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="preview-note"><div class="wrap">Prévia de proposta, não é o site oficial. Preços e equipe conforme o AppBarber em 18/11/2026.</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#inicio">Maison <em>For Men</em></a>
+    <nav aria-label="Seções">
+      <a href="#servicos">Serviços</a>
+      <a href="#assinatura">Assinatura</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#avaliar">Avaliar</a>
+      <a href="#visite">Como chegar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Uma barbearia que vai além do corte</div>
+        <h1>A excelência mora <em>nos detalhes.</em></h1>
+        <p class="lead">Corte, barba e cuidado no Setor Garavelo, com café passado na hora, sinuca e futebol na TV enquanto você espera.</p>
+        <div class="ctas">
+          <a class="btn solid" href="https://sites.appbarber.com.br/maisonformen-xrxf" target="_blank" rel="noopener">Agendar horário</a>
+          <a class="btn ghost" href="#servicos">Ver serviços</a>
+        </div>
+      </div>
+      <figure class="hero-media" style="margin:0">
+        <video src="fotos/maison-video-salao-web.mp4" poster="fotos/maison-video-salao-poster.jpg" autoplay muted loop playsinline aria-label="Vídeo do salão da Maison For Men"></video>
+        <div class="badge">4,9 ★<small>502 avaliações no Google</small></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="eyebrow">A casa</div>
+      <h2>Mais que uma cadeira</h2>
+      <div class="perks">
+        <div class="perk"><img src="fotos/maison-maps-foto-09.jpg" alt="Cantinho do café com xícaras e a placa Seja bem-vindo ao castelo" loading="lazy"><b>Café de verdade</b><p>O café e o cappuccino da casa são o que nossos clientes mais elogiam.</p></div>
+        <div class="perk"><img src="fotos/maison-maps-foto-04.jpg" alt="Mesa de sinuca e poltronas vermelhas" loading="lazy"><b>Sinuca e futebol</b><p>Mesa de sinuca, poltronas e o jogo passando nas TVs.</p></div>
+        <div class="perk"><img src="fotos/maison-maps-foto-14.jpg" alt="Lavatórios de couro preto e geladeira de bebidas" loading="lazy"><b>Lavagem com massagem</b><p>Lavatórios para lavagem e hidratação com massagem capilar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="eyebrow">Por dentro</div>
+      <h2>Conheça a casa</h2>
+      <div class="gallery">
+        <img class="big" src="fotos/maison-maps-foto-03.jpg" alt="Salão com área de espera e barbeiros atendendo" loading="lazy">
+        <img src="fotos/maison-maps-foto-17.jpg" alt="Recepção com balcão e bebidas" loading="lazy">
+        <img src="fotos/maison-maps-foto-05.jpg" alt="Barbeiros cortando cabelo" loading="lazy">
+        <img src="fotos/maison-maps-foto-07.jpg" alt="Estante de produtos na parede de tijolo" loading="lazy">
+        <img class="wide" src="fotos/maison-maps-foto-06.jpg" alt="Bancadas com espelhos e bicicleta decorativa" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="servicos">
+    <div class="wrap">
+      <div class="eyebrow">Cardápio da casa</div>
+      <h2>Serviços</h2>
+      <div class="menu">
+        <div class="item"><div><b>Corte</b></div><span class="dots"></span><span class="price">R$ 65</span></div>
+        <div class="item"><div><b>Barba</b><small>Com toalha quente</small></div><span class="dots"></span><span class="price">R$ 60</span></div>
+        <div class="item"><div><b>Corte e barba</b></div><span class="dots"></span><span class="price">R$ 125</span></div>
+        <div class="item"><div><b>Barba express</b><small>Só na máquina</small></div><span class="dots"></span><span class="price">R$ 30</span></div>
+        <div class="item"><div><b>Pezinho</b></div><span class="dots"></span><span class="price">R$ 15</span></div>
+        <div class="item"><div><b>Sobrancelha na navalha</b></div><span class="dots"></span><span class="price">R$ 28</span></div>
+      </div>
+
+      <h3 class="sub">Barba</h3>
+      <div class="menu">
+        <div class="item"><div><b>Barboterapia</b></div><span class="dots"></span><span class="price">R$ 45</span></div>
+        <div class="item"><div><b>Hidratação de barba</b></div><span class="dots"></span><span class="price">R$ 30</span></div>
+        <div class="item"><div><b>Pigmentação de barba</b></div><span class="dots"></span><span class="price">R$ 30</span></div>
+        <div class="item"><div><b>Nanopigmentação de barba</b></div><span class="dots"></span><span class="todo">valor a confirmar</span></div>
+      </div>
+
+      <h3 class="sub">Cabelo</h3>
+      <div class="menu">
+        <div class="item"><div><b>Camuflagem</b></div><span class="dots"></span><span class="price">R$ 80</span></div>
+        <div class="item"><div><b>Definitiva</b></div><span class="dots"></span><span class="price">R$ 120</span></div>
+        <div class="item"><div><b>Selagem</b></div><span class="dots"></span><span class="price">a partir de R$ 99,90</span></div>
+        <div class="item"><div><b>Tintura</b></div><span class="dots"></span><span class="price">a partir de R$ 65</span></div>
+        <div class="item"><div><b>Luzes ou platinado</b></div><span class="dots"></span><span class="price">R$ 250</span></div>
+        <div class="item"><div><b>Hidratação + massagem capilar</b></div><span class="dots"></span><span class="price">R$ 50</span></div>
+        <div class="item"><div><b>Reconstrução</b></div><span class="dots"></span><span class="price">R$ 55</span></div>
+        <div class="item"><div><b>Ozonioterapia</b></div><span class="dots"></span><span class="price">R$ 10</span></div>
+        <div class="item"><div><b>Manutenção de prótese</b></div><span class="dots"></span><span class="price">a partir de R$ 150</span></div>
+      </div>
+
+      <h3 class="sub">Rosto, mãos e mais</h3>
+      <div class="menu">
+        <div class="item"><div><b>Consultoria visagista</b><small>90 minutos</small></div><span class="dots"></span><span class="price">R$ 900</span></div>
+        <div class="item"><div><b>Limpeza de pele</b></div><span class="dots"></span><span class="price">R$ 80</span></div>
+        <div class="item"><div><b>Sobrancelha com pinça, linha ou cera</b></div><span class="dots"></span><span class="price">R$ 48</span></div>
+        <div class="item"><div><b>Depilação de nariz ou orelha</b></div><span class="dots"></span><span class="price">R$ 28</span></div>
+        <div class="item"><div><b>Depilação de nariz e orelha</b></div><span class="dots"></span><span class="price">R$ 56</span></div>
+        <div class="item"><div><b>Cone hindu</b></div><span class="dots"></span><span class="price">R$ 75</span></div>
+        <div class="item"><div><b>Manicure</b></div><span class="dots"></span><span class="price">R$ 50</span></div>
+        <div class="item"><div><b>Pé e mão</b></div><span class="dots"></span><span class="price">R$ 120</span></div>
+        <div class="item"><div><b>Modelagem</b></div><span class="dots"></span><span class="price">R$ 30</span></div>
+        <div class="item"><div><b>Maquiagem</b></div><span class="dots"></span><span class="price">R$ 45</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="assinatura">
+    <div class="wrap">
+      <div class="eyebrow">Clube Maison</div>
+      <h2>Assinatura mensal</h2>
+      <div class="subs">
+        <div class="sub-card"><h4>Corte ilimitado</h4><div class="val">R$ 119,90 <small>/mês</small></div><p>De segunda a quarta: R$ 99,90</p></div>
+        <div class="sub-card hl"><h4>Corte e barba ilimitados</h4><div class="val">R$ 209,90 <small>/mês</small></div><p>De segunda a quarta: R$ 189,90</p></div>
+        <div class="sub-card"><h4>Barba ilimitada</h4><div class="val">R$ 149,90 <small>/mês</small></div><p>Barba sempre em dia</p></div>
+        <div class="sub-card"><h4>Pai e filho</h4><div class="val">R$ 199,90 <small>/mês</small></div><p>Corte ilimitado para os dois</p></div>
+      </div>
+      <p style="margin-top:20px"><a class="btn ghost" href="https://sites.appbarber.com.br/maisonformen-xrxf" target="_blank" rel="noopener">Assinar pelo app</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="equipe">
+    <div class="wrap">
+      <div class="eyebrow">Quem atende você</div>
+      <h2>Nossa equipe</h2>
+      <p class="team-note">Toque em um nome para avaliar o atendimento.</p>
+      <div class="team" id="team"></div>
+    </div>
+  </section>
+
+  <section class="block" id="avaliar">
+    <div class="wrap rate">
+      <div>
+        <div class="eyebrow">Sua opinião</div>
+        <h2>Como foi seu atendimento?</h2>
+        <p class="explain">Esta é a página que abre quando o cliente encosta o celular no totem da bancada. O nome do profissional já vem preenchido.</p>
+        <div class="nfc-tag">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c9a45c" stroke-width="1.6" aria-hidden="true"><path d="M6 8.5a5 5 0 0 1 0 7"/><path d="M9 6a9 9 0 0 1 0 12"/><path d="M12 3.5a13 13 0 0 1 0 17"/><rect x="15.5" y="6" width="5" height="12" rx="1"/></svg>
+          Encoste o celular no totem ou leia o QR Code
+        </div>
+      </div>
+
+      <form class="card" id="rateForm" novalidate>
+        <div>
+          <label for="barberSelect">Profissional</label>
+          <select id="barberSelect"></select>
+        </div>
+        <div>
+          <label id="starsLabel">Nota</label>
+          <div class="stars" role="group" aria-labelledby="starsLabel" id="stars"></div>
+        </div>
+        <div>
+          <label for="comment">Comentário (opcional)</label>
+          <textarea id="comment" placeholder="Conte como foi"></textarea>
+        </div>
+        <button class="btn solid" type="submit">Enviar avaliação</button>
+      </form>
+
+      <div class="card thanks" id="thanks" hidden>
+        <h3>Valeu pela avaliação!</h3>
+        <p id="thanksText">Sua nota foi registrada.</p>
+        <p>Se puder, deixe também sua opinião no Google. Ajuda muito a barbearia.</p>
+        <div class="ctas">
+          <a class="btn solid" href="https://www.google.com/maps/place/BARBEARIA+MAISON+FOR+MEN/@-16.7686696,-49.3291472,17z/data=!4m6!3m5!1s0x935ef82a1aa4263d:0x696c193dd7ac5e0!8m2!3d-16.7686696!4d-49.3291472" target="_blank" rel="noopener">Avaliar no Google</a>
+          <a class="btn ghost" href="https://www.instagram.com/maisonformen/" target="_blank" rel="noopener">Seguir no Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="visite">
+    <div class="wrap">
+      <div class="eyebrow">Visite</div>
+      <h2>Como chegar</h2>
+      <div class="visit">
+        <div>
+          <img class="facade" src="fotos/maison-maps-foto-02.jpg" alt="Fachada cinza e branca da Maison For Men com letreiro e porta de vidro" loading="lazy">
+          <h3>Endereço</h3>
+          <p>Av. da Paz, 564 (Qd. 136, Lt. 04)<br>Setor Garavelo, Aparecida de Goiânia - GO<br>CEP 74930-570</p>
+          <p style="margin-top:12px"><a class="btn ghost" href="https://www.google.com/maps/place/BARBEARIA+MAISON+FOR+MEN/@-16.7686696,-49.3291472,17z" target="_blank" rel="noopener">Abrir no mapa</a></p>
+        </div>
+        <div>
+          <h3>Horário</h3>
+          <div class="hours">
+            <span>Segunda</span><span>10h às 20h</span>
+            <span>Terça a sexta</span><span>9h às 20h</span>
+            <span>Sábado</span><span>9h às 18h</span>
+            <span>Domingo</span><span>Fechado</span>
+          </div>
+        </div>
+        <div>
+          <h3>Contato</h3>
+          <p>(62) 99285-6856<br>(62) 99435-3299</p>
+          <p><a href="https://www.instagram.com/maisonformen/" target="_blank" rel="noopener">@maisonformen</a></p>
+          <p style="margin-top:8px;color:var(--muted);font-size:14px">Dinheiro, crédito e débito</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Maison For Men · Aparecida de Goiânia</span>
+    <span>Prévia de proposta</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var team = ['Brenda','Manu','Acreano Felipe','Amanda','Duda','Felipe','Glenio','Luiz','Mari','Matheus C','Matheus S','Murilo','Pedro','Prateado','Victor'];
+  var teamEl = document.getElementById('team');
+  var sel = document.getElementById('barberSelect');
+  // Foto de cada profissional (a da Mari ainda falta)
+  var slug = function (n) { return n.toLowerCase().replace(/\s+/g, '-'); };
+  var semFoto = ['Mari'];
+  team.forEach(function (n) {
+    var a = document.createElement('a');
+    a.className = 'chip'; a.href = '#avaliar';
+    a.innerHTML = '<span class="ini" role="img"></span><span class="nm"></span>';
+    var ini = a.firstChild;
+    if (semFoto.indexOf(n) === -1) {
+      ini.style.backgroundImage = "url('fotos/maison-profissional-" + slug(n) + ".jpg')";
+      ini.setAttribute('aria-label', 'Foto de ' + n);
+    } else {
+      ini.textContent = n.charAt(0);
+      ini.setAttribute('aria-label', n);
+    }
+    a.lastChild.textContent = n;
+    a.addEventListener('click', function () { sel.value = n; });
+    teamEl.appendChild(a);
+    var o = document.createElement('option'); o.textContent = n; sel.appendChild(o);
+  });
+
+  var starsEl = document.getElementById('stars');
+  var rating = 0;
+  for (var i = 1; i <= 5; i++) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = '★'; b.dataset.v = i;
+    b.setAttribute('aria-label', i + (i === 1 ? ' estrela' : ' estrelas'));
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () {
+      rating = +this.dataset.v;
+      starsEl.querySelectorAll('button').forEach(function (s) { s.setAttribute('aria-pressed', String(+s.dataset.v <= rating)); });
+    });
+    starsEl.appendChild(b);
+  }
+  // Link do NFC de cada bancada: ?barbeiro=Pedro pré-seleciona
+  try {
+    var q = new URLSearchParams(location.search).get('barbeiro');
+    if (q && team.indexOf(q) > -1) sel.value = q;
+  } catch (e) {}
+
+  document.getElementById('rateForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!rating) { starsEl.querySelector('button').focus(); return; }
+    document.getElementById('thanksText').textContent = 'Você deu ' + rating + (rating === 1 ? ' estrela' : ' estrelas') + ' para ' + sel.value + '.';
+    this.hidden = true;
+    document.getElementById('thanks').hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
