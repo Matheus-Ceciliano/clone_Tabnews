@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maison For Men — Decisões e calculadora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: planning dossier in the house colors (bottle green and brass); one column that widens for the calculator */
+:root {
+  --paper: #f4f5f1; --surface: #ffffff; --ink: #14231c; --muted: #56645c; --line: #d6dcd3;
+  --green: #1f4a3a; --brass: #8c6a2a; --brass-bg: #f1e9d6; --bar: #c9a45c; --key: #e4efe8;
+  --display: "Bodoni Moda", "Didot", Georgia, serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1f19; --surface: #152a22; --ink: #efe8d8; --muted: #a9b3a7; --line: #2a3d34;
+    --green: #8fc2a8; --brass: #d1ad66; --brass-bg: #2a2416; --bar: #c9a45c; --key: #183126;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1f19; --surface: #152a22; --ink: #efe8d8; --muted: #a9b3a7; --line: #2a3d34;
+  --green: #8fc2a8; --brass: #d1ad66; --brass-bg: #2a2416; --bar: #c9a45c; --key: #183126;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 980px; margin: 0 auto; padding-block: 44px 72px; }
+a { color: var(--green); }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); }
+h1 { font-family: var(--display); font-weight: 500; font-size: clamp(36px, 6vw, 58px); line-height: 1.04; margin: 10px 0 14px; text-wrap: balance; }
+h1 em { color: var(--brass); }
+h2 { font-family: var(--display); font-weight: 500; font-size: clamp(27px, 4.2vw, 36px); line-height: 1.12; margin: 0 0 12px; text-wrap: balance; }
+h3 { font-size: 16px; margin: 0 0 6px; }
+p { margin: 0 0 12px; max-width: 68ch; }
+.lead { font-size: 17.5px; color: var(--muted); }
+.small { font-size: 13.5px; color: var(--muted); }
+section { padding-top: 48px; margin-top: 48px; border-top: 1px solid var(--line); }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+nav.toc a { font-size: 13px; text-decoration: none; color: var(--ink); border: 1px solid var(--line); background: var(--surface); padding: 5px 11px; border-radius: 999px; }
+nav.toc a:hover { border-color: var(--brass); }
+
+.key { background: var(--key); border-left: 4px solid var(--green); padding: 22px 24px; display: grid; gap: 14px; }
+.key h2 { color: var(--green); margin: 0; }
+.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.flow span { background: var(--surface); border: 1px solid var(--green); border-radius: 999px; padding: 5px 12px; font-size: 14px; font-weight: 600; }
+.flow b { color: var(--green); }
+.cols3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.cols3 h3 { color: var(--green); }
+.cols3 ul { margin: 0; padding-left: 18px; font-size: 14.5px; }
+.cols3 li { margin: 3px 0; }
+
+.tbl { overflow-x: auto; margin: 8px 0 16px; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; background: var(--paper); white-space: nowrap; }
+.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+tr.total td { font-weight: 700; background: var(--brass-bg); }
+.tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: var(--brass-bg); color: var(--brass); white-space: nowrap; }
+
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 10px; }
+.plan { background: var(--surface); border: 1px solid var(--line); padding: 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.plan.rec { border-color: var(--brass); box-shadow: inset 0 0 0 1px var(--brass); }
+.plan h3 { font-family: var(--display); font-weight: 500; font-size: 23px; margin: 0; }
+.plan .price { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.plan .price b { color: var(--ink); font-size: 20px; }
+.plan ul { margin: 4px 0 0; padding-left: 18px; font-size: 14px; }
+
+ol.steps { list-style: none; padding: 0; margin: 8px 0 0; counter-reset: s; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+ol.steps li::before { content: counter(s); width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--brass); color: var(--brass); display: grid; place-items: center; font-family: var(--display); }
+ol.steps span { color: var(--muted); font-size: 14.5px; }
+ul.plain { padding-left: 20px; margin: 6px 0 12px; }
+ul.plain li { margin: 4px 0; }
+
+/* calculadora */
+.calc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 20px; margin-top: 10px; }
+.panel { background: var(--surface); border: 1px solid var(--line); padding: 18px; min-width: 0; }
+.panel h3 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--brass); margin: 0 0 10px; }
+.panel h3 + .field { border-top: 0; }
+.field { display: grid; grid-template-columns: minmax(0, 1fr) 108px; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.field label { font-size: 14px; }
+.field label small { display: block; color: var(--muted); font-size: 12.5px; }
+.field input { width: 100%; padding: 8px 10px; font: 600 15px var(--body); text-align: right; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 3px; font-variant-numeric: tabular-nums; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg label { border: 1px solid var(--line); padding: 9px 10px; text-align: center; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 3px; background: var(--paper); }
+.seg input:checked + label { border-color: var(--brass); background: var(--brass-bg); }
+.seg input:focus-visible + label { outline: 2px solid var(--brass); outline-offset: 2px; }
+.gap-top { margin-top: 16px; }
+.out { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 14px; }
+.out div { background: var(--surface); padding: 13px; min-width: 0; }
+.out .hl { background: var(--brass-bg); }
+.out b { display: block; font-family: var(--display); font-weight: 500; font-size: 26px; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
+.out span { font-size: 13px; color: var(--muted); }
+.rows { display: grid; gap: 9px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; font-size: 14px; }
+.row .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+.row .track { grid-column: 1 / -1; height: 8px; background: var(--paper); border-radius: 4px; overflow: hidden; }
+.row .fill { height: 100%; background: var(--bar); border-radius: 4px; transition: width .25s; }
+.row.off { color: var(--muted); }
+.row.off .v { font-weight: 400; }
+.sum { margin-top: 14px; display: grid; gap: 4px; font-size: 14.5px; }
+.sum div { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.sum .net { font-weight: 700; border-top: 1px solid var(--line); padding-top: 6px; }
+.ours { margin-top: 16px; padding: 12px 14px; background: var(--paper); border: 1px dashed var(--line); }
+.ours h3 { margin-bottom: 6px; }
+.say { margin-top: 14px; padding: 12px 14px; border-left: 3px solid var(--brass); background: var(--paper); font-size: 15px; }
+footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .cols3, .plans, .calc { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .row .fill { transition: none; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Barbearia Maison For Men · Garavelo · novembro de 2026</div>
+    <h1>O que <em>decidimos</em> e a calculadora</h1>
+    <p class="lead">Resumo das decisões do projeto e uma calculadora para estimar o ganho da barbearia e o nosso. A Maison tem 15 profissionais, nota 4,9 com 502 avaliações no Google e usa o AppBarber para agenda e assinaturas.</p>
+    <nav class="toc" aria-label="Seções">
+      <a href="#chave">Ideia-chave</a>
+      <a href="#decisoes">Decisões</a>
+      <a href="#planos">Planos</a>
+      <a href="#etapas">Etapas</a>
+      <a href="#ganho">Ganho da barbearia</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#confirmar">Falta confirmar</a>
+    </nav>
+  </header>
+
+  <section id="chave">
+    <div class="key">
+      <div class="eyebrow">Ideia-chave</div>
+      <h2>Salvar os cortes de cada cliente</h2>
+      <div class="flow">
+        <span>Corte termina</span><b>→</b>
+        <span>Foto + máquina, degradê e produto em 3 toques</span><b>→</b>
+        <span>Próxima visita: “vai ser o de sempre?”</span><b>→</b>
+        <span>Qualquer barbeiro repete</span>
+      </div>
+      <div class="cols3">
+        <div><h3>Para a barbearia</h3><ul><li>O cliente não fica preso a um só dos 15 profissionais</li><li>Menos erro de corte</li><li>“Minha galeria” faz o cliente voltar</li></ul></div>
+        <div><h3>Para nós</h3><ul><li>Os dados se acumulam e a barbearia não troca de sistema</li><li>Segura a mensalidade por anos</li><li>Serve para qualquer barbearia ou salão</li></ul></div>
+        <div><h3>Para dar certo</h3><ul><li>Salvar em menos de 20 segundos</li><li>Foto pode vir da cabine</li><li>Autorização do cliente no primeiro Cheguei (LGPD)</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="decisoes">
+    <div class="eyebrow">Escolhas feitas</div>
+    <h2>Decisões</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Item</th><th>O que decidimos</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td><b>Botão Cheguei</b></td><td>NFC + QR na recepção. O cliente encosta e ganha o café e o selo de fidelidade; o celular pergunta “o de sempre?” e “a bebida de sempre?”</td><td>Reconhece o cliente sem app e sem login no Wi-Fi. Base de tudo que é automático</td></tr>
+        <tr><td><b>Cortes salvos (ficha)</b></td><td>Corte de sempre, fotos, preferências, cuidados, família, produto usado e datas importantes</td><td>Ideia-chave: o cliente fica com a casa</td></tr>
+        <tr><td><b>Totem nas bancadas</b></td><td>Acrílico espelhado, logo gravado e iluminado, tela de 7", base de LED RGB e NFC do profissional</td><td>Chamativo, mostra “Olá, João!” e não mexe nos espelhos</td></tr>
+        <tr><td><b>Avaliação por profissional</b></td><td>NFC da bancada abre a avaliação daquele profissional; depois, o link do Google para todos. Nota baixa gera alerta para o dono</td><td>Nota de cada um e avaliações dentro das regras do Google</td></tr>
+        <tr><td><b>WhatsApp automático</b></td><td>Boas-vindas, pós-corte, lembrete de retorno, produto acabando, datas e relatório do dono toda segunda. Só WhatsApp oficial</td><td>Faz o cliente voltar; completa o AppBarber</td></tr>
+        <tr><td><b>Cabine de foto</b></td><td>Encosta, 3-2-1, foto no WhatsApp com moldura @maisonformen e pergunta “podemos postar?”</td><td>Instagram todo dia sem o dono fazer nada</td></tr>
+        <tr><td><b>Simulador de corte com IA</b></td><td>Selfie no Cheguei mostra outros cortes, luzes e barba. Testar primeiro na nuvem; servidor próprio depois</td><td>Vende química e a consultoria visagista de R$ 900</td></tr>
+        <tr><td><b>Assistente de IA</b></td><td>Responde 24h no Instagram e no WhatsApp e manda o link do AppBarber</td><td>Nenhuma mensagem sem resposta</td></tr>
+        <tr><td><b>Site da Maison</b></td><td>Serviços com preço, assinaturas, equipe com foto, avaliação e agendamento. Prévia pronta</td><td>Hoje o botão Site do Google leva ao Instagram</td></tr>
+        <tr><td><b>Indique um amigo</b></td><td>Link pessoal no WhatsApp; o amigo ganha desconto e quem indicou ganha selos</td><td>Cliente novo pagando só quando chega</td></tr>
+        <tr><td><b>Junto com o AppBarber</b></td><td>Agenda e assinaturas continuam no AppBarber</td><td>Nosso sistema cobre o que o app não faz</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="planos">
+    <div class="eyebrow">O que vamos cobrar</div>
+    <h2>Planos</h2>
+    <p class="small">Valores para 3 bancadas. Cada bancada a mais com totem: R$ 1.290.</p>
+    <div class="plans">
+      <article class="plan"><h3>Essencial</h3><div class="price"><b>R$ 1.490</b> + R$ 149/mês</div><ul><li>Site da Maison</li><li>Avaliação por profissional, com painel</li><li>2 placas NFC + QR na recepção</li></ul></article>
+      <article class="plan"><h3>Premium</h3><div class="price"><b>R$ 4.990</b> + R$ 249/mês</div><ul><li>Tudo do Essencial</li><li>3 totens nas bancadas</li><li>Botão Cheguei e cortes salvos</li><li>WhatsApp automático: +R$ 150/mês</li></ul></article>
+      <article class="plan rec"><h3>Maison Tech <span class="tag">recomendado</span></h3><div class="price"><b>R$ 8.990</b> + R$ 790/mês</div><ul><li>Tudo do Premium, com WhatsApp</li><li>Cabine de foto</li><li>Simulador de corte com IA</li><li>Assistente de IA</li><li>Alerta e relatório semanal</li></ul></article>
+    </div>
+    <div class="tbl" style="margin-top:14px"><table>
+      <thead><tr><th>À parte, em qualquer plano</th><th class="num">Implantação</th><th class="num">Mensal</th></tr></thead>
+      <tbody>
+        <tr><td>Cabine de foto</td><td class="num">R$ 2.990</td><td class="num">R$ 99</td></tr>
+        <tr><td>Simulador de corte com IA</td><td class="num">R$ 990</td><td class="num">R$ 149</td></tr>
+        <tr><td>Assistente de IA</td><td class="num">R$ 1.490</td><td class="num">R$ 199</td></tr>
+        <tr><td>Totem extra</td><td class="num">R$ 1.290</td><td class="num">incluso</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Pagamento: 50% na aprovação e 50% na instalação, ou cartão.</p>
+  </section>
+
+  <section id="etapas">
+    <div class="eyebrow">Ordem de execução</div>
+    <h2>Etapas</h2>
+    <ol class="steps">
+      <li><div><b>Semanas 1 e 2</b><br><span>Site, placas NFC e avaliação por profissional.</span></div></li>
+      <li><div><b>Semanas 3 e 4</b><br><span>Botão Cheguei e cortes salvos. Um totem de teste; aprovado, os demais.</span></div></li>
+      <li><div><b>2º mês</b><br><span>WhatsApp automático e cabine de foto.</span></div></li>
+      <li><div><b>3º mês</b><br><span>Assistente de IA e teste do simulador de corte.</span></div></li>
+    </ol>
+  </section>
+
+  <section id="ganho">
+    <div class="eyebrow">O argumento de venda</div>
+    <h2>Ganho da barbearia (Maison Tech)</h2>
+    <p>Conta conservadora: 1.500 atendimentos por mês e tíquete médio de R$ 60.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>De onde vem o dinheiro</th><th>Hipótese</th><th class="num">A mais/mês</th></tr></thead>
+      <tbody>
+        <tr><td>Cliente volta mais vezes</td><td>+3% de visitas = 45 visitas</td><td class="num">R$ 2.700</td></tr>
+        <tr><td>Simulador de corte</td><td>8 extras de R$ 80 + 1 consultoria de R$ 900</td><td class="num">R$ 1.540</td></tr>
+        <tr><td>Cliente salvo antes de sumir</td><td>10 clientes resgatados</td><td class="num">R$ 600</td></tr>
+        <tr><td>Indique um amigo</td><td>8 clientes novos</td><td class="num">R$ 480</td></tr>
+        <tr><td>Assistente de IA 24h</td><td>8 agendamentos que se perderiam</td><td class="num">R$ 480</td></tr>
+        <tr><td>Cabine de foto e Instagram</td><td>4 clientes novos</td><td class="num">R$ 240</td></tr>
+        <tr class="total"><td>Total</td><td></td><td class="num">≈ R$ 6.040</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl"><table>
+      <thead><tr><th></th><th class="num">3 bancadas</th><th class="num">10 bancadas</th></tr></thead>
+      <tbody>
+        <tr><td>Implantação</td><td class="num">R$ 8.990</td><td class="num">R$ 18.020</td></tr>
+        <tr><td>Mensalidade</td><td class="num">R$ 790</td><td class="num">R$ 790</td></tr>
+        <tr><td>Ganho líquido por mês</td><td class="num">≈ R$ 5.250</td><td class="num">≈ R$ 5.250</td></tr>
+        <tr class="total"><td>Se paga em</td><td class="num">≈ 2 meses</td><td class="num">≈ 3 a 4 meses</td></tr>
+        <tr><td>Sobra no 1º ano</td><td class="num">≈ R$ 54.000</td><td class="num">≈ R$ 45.000</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Fora da conta: venda de produtos, gestão por profissional, avaliações seguras no Google, cliente que fica com a casa e preço premium justificado.</p>
+  </section>
+
+  <section id="calculadora">
+    <div class="eyebrow">Faça a conta</div>
+    <h2>Calculadora</h2>
+    <p>Troque pelos números reais. Tudo é estimativa.</p>
+    <div class="calc">
+      <div class="panel">
+        <h3>Plano</h3>
+        <div class="seg" role="radiogroup" aria-label="Plano">
+          <input type="radio" name="plano" id="p-premium" value="premium"><label for="p-premium">Premium + WhatsApp</label>
+          <input type="radio" name="plano" id="p-tech" value="tech" checked><label for="p-tech">Maison Tech</label>
+        </div>
+        <h3>A barbearia</h3>
+        <div class="field"><label for="atend">Atendimentos por mês</label><input id="atend" type="number" min="0" step="50" value="1500" inputmode="numeric"></div>
+        <div class="field"><label for="ticket">Tíquete médio (R$)</label><input id="ticket" type="number" min="0" step="5" value="60" inputmode="numeric"></div>
+        <div class="field"><label for="banc">Bancadas com totem<small>3 inclusas; extra R$ 1.290</small></label><input id="banc" type="number" min="3" step="1" value="3" inputmode="numeric"></div>
+        <h3 class="gap-top">O que esperar por mês</h3>
+        <div class="field"><label for="ret">Visitas a mais (%)</label><input id="ret" type="number" min="0" step="0.5" value="3" inputmode="decimal"></div>
+        <div class="field"><label for="res">Clientes resgatados</label><input id="res" type="number" min="0" step="1" value="10" inputmode="numeric"></div>
+        <div class="field"><label for="ind">Clientes por indicação</label><input id="ind" type="number" min="0" step="1" value="8" inputmode="numeric"></div>
+        <div class="field"><label for="ext">Extras pelo simulador<small>R$ 80 cada</small></label><input id="ext" type="number" min="0" step="1" value="8" inputmode="numeric"></div>
+        <div class="field"><label for="vis">Consultorias visagistas<small>R$ 900 cada</small></label><input id="vis" type="number" min="0" step="1" value="1" inputmode="numeric"></div>
+        <div class="field"><label for="ia">Agendamentos pelo assistente</label><input id="ia" type="number" min="0" step="1" value="8" inputmode="numeric"></div>
+        <div class="field"><label for="ig">Clientes pelo Instagram</label><input id="ig" type="number" min="0" step="1" value="4" inputmode="numeric"></div>
+      </div>
+
+      <div class="panel" aria-live="polite">
+        <h3>Barbearia</h3>
+        <div class="out">
+          <div class="hl"><b id="o-net">—</b><span>ganho líquido por mês</span></div>
+          <div><b id="o-pay">—</b><span>para se pagar</span></div>
+          <div><b id="o-gain">—</b><span>a mais por mês, antes da mensalidade</span></div>
+          <div><b id="o-year">—</b><span>sobra no 1º ano</span></div>
+        </div>
+        <div class="rows" id="rows"></div>
+        <div class="sum">
+          <div><span>Implantação</span><span id="o-impl">—</span></div>
+          <div><span>Mensalidade</span><span id="o-mens">—</span></div>
+          <div class="net"><span>Ganho líquido por mês</span><span id="o-net2">—</span></div>
+        </div>
+        <p class="say" id="o-say"></p>
+        <div class="ours">
+          <h3>Nossa parte (estimativa)</h3>
+          <div class="sum" style="margin-top:0">
+            <div><span>Custo das peças</span><span id="u-cost">—</span></div>
+            <div><span>Sobra na implantação</span><span id="u-impl">—</span></div>
+            <div class="net"><span>Sobra por mês</span><span id="u-month">—</span></div>
+          </div>
+          <p class="small" style="margin:8px 0 0">Meio das faixas de custo do plano: peças, servidor, IA e mensagens. Sem contar nosso tempo e impostos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="confirmar">
+    <div class="eyebrow">Antes da reunião</div>
+    <h2>Falta confirmar</h2>
+    <ul class="plain">
+      <li>Quantas bancadas a casa tem</li>
+      <li>Se existe Wi-Fi para clientes (no AppBarber aparece desmarcado)</li>
+      <li>Se o AppBarber deixa a gente acessar a agenda</li>
+      <li>Se vendem produtos Kôvan</li>
+      <li>Nome da nossa empresa (Vytra?)</li>
+      <li>Foto da Mari e fotos melhores do Matheus C e do Murilo</li>
+    </ul>
+  </section>
+
+  <footer>Valores de novembro de 2026. Ganhos e custos são estimativas com hipóteses conservadoras.</footer>
+</main>
+
+<script>
+(function () {
+  var brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+  // cost / ourMonthCost: meio das faixas estimadas no plano
+  var PLANS = {
+    premium: { name: 'Premium + WhatsApp', base: 4990, mensal: 399, cost: 2065, ourMonthCost: 80, mods: ['ret', 'res', 'ind'] },
+    tech: { name: 'Maison Tech', base: 8990, mensal: 790, cost: 3065, ourMonthCost: 340, mods: ['ret', 'res', 'ind', 'sim', 'ia', 'ig'] }
+  };
+  var EXTRA_PRICE = 1290, EXTRA_COST = 640;
+  var LABELS = { ret: 'Cliente volta mais vezes', sim: 'Simulador de corte', res: 'Cliente salvo antes de sumir', ind: 'Indique um amigo', ia: 'Assistente de IA 24h', ig: 'Cabine de foto e Instagram' };
+  var ORDER = ['ret', 'sim', 'res', 'ind', 'ia', 'ig'];
+  function v(id) { var n = parseFloat(document.getElementById(id).value); return isFinite(n) && n > 0 ? n : 0; }
+  function set(id, t) { document.getElementById(id).textContent = t; }
+  function calc() {
+    var plan = PLANS[document.querySelector('input[name="plano"]:checked').value];
+    var t = v('ticket');
+    var vals = { ret: v('atend') * v('ret') / 100 * t, sim: v('ext') * 80 + v('vis') * 900, res: v('res') * t, ind: v('ind') * t, ia: v('ia') * t, ig: v('ig') * t };
+    var gain = 0, max = 1;
+    ORDER.forEach(function (k) { if (plan.mods.indexOf(k) > -1) gain += vals[k]; max = Math.max(max, vals[k]); });
+    var banc = Math.max(3, Math.round(v('banc')) || 3), extras = banc - 3;
+    var impl = plan.base + extras * EXTRA_PRICE;
+    var net = gain - plan.mensal;
+    var rows = document.getElementById('rows'); rows.innerHTML = '';
+    ORDER.forEach(function (k) {
+      var on = plan.mods.indexOf(k) > -1;
+      var r = document.createElement('div');
+      r.className = 'row' + (on ? '' : ' off');
+      r.innerHTML = '<span></span><span class="v"></span><div class="track"><div class="fill"></div></div>';
+      r.children[0].textContent = LABELS[k];
+      r.children[1].textContent = on ? brl.format(vals[k]) : 'só no Maison Tech';
+      r.querySelector('.fill').style.width = on ? (vals[k] / max * 100).toFixed(1) + '%' : '0%';
+      rows.appendChild(r);
+    });
+    set('o-gain', brl.format(gain)); set('o-net', brl.format(net)); set('o-net2', brl.format(net));
+    set('o-impl', brl.format(impl) + ' (' + banc + ' bancadas)'); set('o-mens', brl.format(plan.mensal));
+    set('o-year', brl.format(net * 12 - impl));
+    if (net > 0) {
+      var m = impl / net;
+      set('o-pay', m < 1 ? 'menos de 1 mês' : '≈ ' + m.toFixed(1).replace('.', ',') + ' meses');
+      set('o-say', 'Com esses números, o ' + plan.name + ' se paga em cerca de ' + Math.max(1, Math.ceil(m)) + (Math.ceil(m) > 1 ? ' meses' : ' mês') + ' e depois deixa ' + brl.format(net) + ' a mais por mês na barbearia.');
+    } else {
+      set('o-pay', 'não se paga');
+      set('o-say', 'Com esses números, o ganho não cobre a mensalidade. Revise as hipóteses ou comece por um plano menor.');
+    }
+    var cost = plan.cost + extras * EXTRA_COST;
+    set('u-cost', brl.format(cost)); set('u-impl', brl.format(impl - cost)); set('u-month', brl.format(plan.mensal - plan.ourMonthCost));
+  }
+  document.querySelectorAll('.calc input').forEach(function (el) { el.addEventListener('input', calc); el.addEventListener('change', calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
